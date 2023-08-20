@@ -7,6 +7,7 @@ export default function App() {
   const inc = useCountStore(state => state.inc);
   const fetchPosts = usePostStore(state => state.setPosts);
   const clearPosts = usePostStore(state => state.clearPosts);
+  const isFetching = usePostStore(state => state.isFetching);
 
   return (
     <div className="container my-5 justify-items-center">
@@ -19,7 +20,13 @@ export default function App() {
           <p className="fs-2 text-center">Fetch top 100 posts</p>
           <div className="row">
             <div className="col">
-              <button onClick={() => fetchPosts({ count: 7, greeting: 'Hello Store' })} className="btn btn-primary text-uppercase fw-bold">Fetch Posts</button>
+              <button
+                onClick={() => fetchPosts({ count: 7, greeting: 'Hello Store' })}
+                className="btn btn-primary text-uppercase fw-bold"
+                disable={isFetching ? 'true' : 'false'}
+                >
+                  { isFetching ? 'Fetching...' : 'Fetch Posts' }
+              </button>
             </div>
             <div className="col">
               <button onClick={clearPosts} className="btn btn-danger text-uppercase fw-bold">Clear Posts</button>

@@ -9,7 +9,9 @@ export const useCountStore = create((set) => ({
 // Posts store
 export const usePostStore = create((set) => ({
 	posts: [],
+	isFetching: false,
 	setPosts: async ({ count, greeting }) => {
+		set({isFetching: true});
 		// We can pass params to the store, either individually or as an object
 		console.log('Count Param: ', count);
 		console.log('Greeting Param: ', greeting);
@@ -18,6 +20,7 @@ export const usePostStore = create((set) => ({
 		// Just call `set` function whenever we are ready! That's all.
 		// All subscribed components will be updated with new data.
 		set(({ posts: await response.json() }));
+		set({isFetching: false});
 	},
 	clearPosts: () => set({ posts: [] }),
 }));
